@@ -1,13 +1,16 @@
 <?php
 
-$conn = oci_connect('DAVID', 'asd123', 'localhost/XE');
+$conn = oci_connect('DAVID', 'asd123', 'localhost/XE','UTF8');
 if (!$conn) {
     $e = oci_error();
     trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
 }
 
-print ("FELHASZNALO tabla");
-$stid = oci_parse($conn, 'SELECT * FROM FELHASZNALO');
+
+print ("Létrehoz tabla");
+$stid = oci_parse($conn, "SELECT * FROM f");
+
+
 if(!$stid) {
     $e = oci_error($conn);
     trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
@@ -28,4 +31,5 @@ while($row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS)) {
 print "</table><br>\n";
 oci_free_statement($stid);
 
+oci_close($conn);
 ?>
