@@ -1,0 +1,23 @@
+<?php
+
+?>
+<!DOCTYPE HTML>
+<html lang="hu">
+<head>
+    <title>SPARta bejelentkezés</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="All.css">
+</head>
+<body>
+<header>bejelentkezés</header>
+<div class="content">
+    <form action="../script/php/handleLogin.php" method="post">
+        <h2>Bejelentkezés</h2>
+        <input type="text" name="username" placeholder="Email" required><br>
+        <input type="password" name="password" placeholder="jelszó" required><br>
+        <input type="submit" value="Bejelentkezés">
+    </form>
+    <a href="Regist.php">Még nincs fiókja?</a>
+</div>
+</body>
+</html>
