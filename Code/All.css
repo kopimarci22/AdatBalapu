@@ -1,0 +1,15 @@
+.content {
+    text-align: center;
+}
+.h2 {
+    text-align: center;
+    color: black;
+    font-family: 'Times New Roman', Times, serif;
+}
+.input {
+    text-align:left;
+    color: black;
+    font-family: 'Times New Roman', Times, serif;
+    margin: 10px;
+    padding: 5px;
+}
