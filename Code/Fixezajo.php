@@ -1,6 +1,6 @@
 <?php
 
-$conn = oci_connect('DAVID', 'asd123','localhost/XE');
+$conn = oci_connect('GERGOO', 'asd123','localhost/XE');
 if(!$conn){
 
     $e=oci_error();
@@ -9,8 +9,7 @@ if(!$conn){
 $query='SELECT * FROM ADMIN';
 $stid= oci_parse($conn, $query);
 $felhasznal=oci_parse($conn,'SELECT * FROM FELHASZNALO');
-$leker=oci_parse($conn,'   select KATEGORIA.ID, NEV from TERMEK inner join KATEGORIA on TERMEK.ID=KATEGORIA.ID where TERMEK.AR=(select max(AR) from TERMEK)
-');
+
 if (!$stid){
     $e=oci_error($conn);
     trigger_error(htmlentities($e['message'],ENT_QUOTES),E_USER_ERROR);
@@ -18,7 +17,7 @@ if (!$stid){
 
 $r = oci_execute($stid);
 $l = oci_execute($felhasznal);
-$s = oci_execute($leker);
+
 if (!$r){
     $e = oci_error($stid);
     trigger_error(htmlentities($e['message'],ENT_QUOTES),E_USER_ERROR);
