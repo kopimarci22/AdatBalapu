@@ -1,7 +1,7 @@
 <?php
 
 class DBconnection{
-    static $database_name = 'oracle kocsis';
+    static $database_name = 'webdb';
     public static $conn = null;
     private static $instance = null;
 
@@ -13,7 +13,7 @@ class DBconnection{
             echo $m['message'], "\n";
             exit;
         }else {
-            //print "Connected to Oracle!";
+            print "Connected to Oracle!";
         }
         self::$conn = $connection;
     }

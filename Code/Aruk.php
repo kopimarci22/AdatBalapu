@@ -16,11 +16,13 @@
         </ul></nav>
 </div>
 <div class="container">
+    <div class="col-sm-4">
+
    <?php
-      include "dbconn.php";
+      include "databaseconn.php";
       $conn = DBconnection::getInstance();
 
-       $stid2 = oci_parse($conn->getConnection(), 'SELECT nev, ar, db_szam FROM TERMEK WHERE db_szam>0 ORDER BY ID');
+       $stid2 = oci_parse($conn->getConnection(), 'SELECT * FROM TERMEK WHERE db_szam>0');
 
    if(!$stid2) {
    	$e = oci_error($conn->getConnection(), $query);
@@ -31,20 +33,28 @@
    	$e = oci_error($stid2);
    	trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
    }
-       while($row = oci_fetch_array($stid2, OCI_ASSOC+OCI_RETURN_NULLS)) {
-           print "<table border='1'>\n";
-           print "<tr><td>Termék Neve: </td><th>" . $row['NEV'] . "</th></tr>" ;
-           print "<tr><td>Termék Ára: </td><th>" . $row['AR'] . " FORINT" . "</th></tr>" ;
-           print "<tr><td>Rendelkezésre álló mennyiség: </td><th>" . $row['DB_SZAM'] . " Db" . "</th></tr>" ;
+    echo "asd";
+
+    while($row = oci_fetch_array($stid2, OCI_BOTH)) {
+
+
+           echo "<table border='1'>\n";
+           echo "<tr><td>Termék Neve: </td><th>" . $row['nev'] . "</th></tr>" ;
+           echo "<tr><td>Termék Ára: </td><th>" . $row['ar'] . " FORINT" . "</th></tr>" ;
+           echo "<tr><td>Rendelkezésre álló mennyiség: </td><th>" . $row['db_szam'] . " Db" . "</th></tr>" ;
 
 
 
-       print "<br>";
+
    }
+
 
    oci_free_statement($stid2);
    ?>
 
-
 </div>
+</div>
+
+
+</body>
 </html>
