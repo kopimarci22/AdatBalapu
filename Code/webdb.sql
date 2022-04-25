@@ -20,107 +20,107 @@ create table KATEGORIA(
 -- A Admin t�bla attrib�tumai: Admin_n�v, Admin_jelsz�
 
 create table ADMIN(
-                      admin_nev VARCHAR2(40) PRIMARY KEY NOT NULL,
-                      admin_jelszo VARCHAR2(20)
+	admin_nev VARCHAR2(40) PRIMARY KEY NOT NULL,
+	admin_jelszo VARCHAR2(20)
 
 );
 
 --A User t�bla attrib�tumai: Fel_n�v, Jelszo, N�v, Lakc�m, Sz�l_datum, Email, Bankkartya, Login
 
 create table FELHASZNALO(
-                            fel_nev VARCHAR2(20) PRIMARY KEY NOT NUll,
-                            jelszo VARCHAR2(21) NOT NUll,
-                            nev VARCHAR2(40),
-                            lakcim VARCHAR2(40),
-                            szul_datum DATE,
-                            email VARCHAR2(40) NOT NUll,
-                            bankkartya NUMBER(38) NOT NULL
+	fel_nev VARCHAR2(20) PRIMARY KEY NOT NUll,
+	jelszo VARCHAR2(21) NOT NUll,
+	nev VARCHAR2(40),
+	lakcim VARCHAR2(40),
+	szul_datum DATE,
+	email VARCHAR2(40) NOT NUll,
+	bankkartya NUMBER(38) NOT NULL
 
-);
+); 
 
 
 
 -- A Term�k t�bla attrib�tumai: T_k�d, n�v, db_sz�m, �r, ID
 create table TERMEK(
-                       t_kod VARCHAR2(40) PRIMARY KEY NOT NULL,
-                       ar NUMBER(38),
-                       nev VARCHAR2(40) NOT NULL,
-                       db_szam NUMBER(38) NOT NULL,
-                       kategoria  VARCHAR2(40),
-                       FOREIGN KEY(kategoria) REFERENCES KATEGORIA(KATEGORIA)
+	t_kod VARCHAR2(40) PRIMARY KEY NOT NULL,
+    ar NUMBER(38),
+	nev VARCHAR2(40) NOT NULL,
+	db_szam NUMBER(38) NOT NULL,
+	kategoria  VARCHAR2(40),
+	FOREIGN KEY(kategoria) REFERENCES KATEGORIA(KATEGORIA)
 );
 
 -- A Kos�r t�bla attrib�tumai: Fel_nev, Id�pont, �r, K_db_sz�m, T_k�d, Check (T�rzsv�s�rl�-e bool), elerheto(elerheto-e)
 
 create table KOSAR(
-                      fel_nev VARCHAR2(20),
-                      idopont DATE,
-                      ar NUMBER(38),
-                      k_db_szam NUMBER(38),
-                      t_kod VARCHAR2(20),
-                      check_ NUMBER(1),
-                      elerheto NUMBER(1),
-                      FOREIGN KEY(fel_nev) REFERENCES FELHASZNALO(FEL_NEV),
-                      FOREIGN KEY(t_kod) REFERENCES TERMEK(T_KOD)
+	fel_nev VARCHAR2(20),
+	idopont DATE,
+	ar NUMBER(38),
+	k_db_szam NUMBER(38),
+	t_kod VARCHAR2(20),
+	check_ NUMBER(1),
+	elerheto NUMBER(1),
+	FOREIGN KEY(fel_nev) REFERENCES FELHASZNALO(FEL_NEV),
+	FOREIGN KEY(t_kod) REFERENCES TERMEK(T_KOD)
 );
 
 -- A Megrendeles t�bla attrib�tumai: M_ID, Fel_nev, D�tum, K_�r, Check_db, T_k�d, �llapot
 
 
 create table MEGRENDELES(
-                            m_id NUMBER(38) PRIMARY KEY NOT NULL,
-                            fel_nev VARCHAR2(40),
-                            datum DATE,
-                            k_ar NUMBER(38),
-                            check_db NUMBER(38),
-                            t_kod VARCHAR2(40),
-                            allapot VARCHAR2(40),
-                            FOREIGN KEY(fel_nev) REFERENCES FELHASZNALO(FEL_NEV),
-                            FOREIGN KEY(t_kod) REFERENCES TERMEK(T_KOD)
+	m_id NUMBER(38) PRIMARY KEY NOT NULL,
+	fel_nev VARCHAR2(40),
+	datum DATE,
+	k_ar NUMBER(38),
+	check_db NUMBER(38),
+	t_kod VARCHAR2(40),
+	allapot VARCHAR2(40),
+	FOREIGN KEY(fel_nev) REFERENCES FELHASZNALO(FEL_NEV),
+	FOREIGN KEY(t_kod) REFERENCES TERMEK(T_KOD)
 );
 
 -- A Sz�mla t�bla attrib�tumai: M_ID, Fel_n�v, Kelte, SZ_ID
 
 create table SZAMLA(
-                       m_id NUMBER(38),
-                       fel_nev VARCHAR2(40),
-                       kelte DATE,
-                       sz_id NUMBER(38) PRIMARY KEY NOT NULL,
-                       FOREIGN	KEY(m_id) REFERENCES MEGRENDELES(M_ID),
-                       FOREIGN KEY(fel_nev) REFERENCES FELHASZNALO(FEL_NEV)
+	m_id NUMBER(38),
+	fel_nev VARCHAR2(40),
+	kelte DATE,
+	sz_id NUMBER(38) PRIMARY KEY NOT NULL,
+    FOREIGN	KEY(m_id) REFERENCES MEGRENDELES(M_ID),
+	FOREIGN KEY(fel_nev) REFERENCES FELHASZNALO(FEL_NEV)
 );
 
 -- A Kedvencek t�bla attrib�tumai: ID, T_K�d, Megrendelt_db
 
 
 create table KEDVENCEK(
-                          kategoria VARCHAR2(40) NOT NULL,
-                          t_kod VARCHAR2(40),
-                          megrendelt_db NUMBER(38),
-                          FOREIGN KEY(kategoria) REFERENCES KATEGORIA(KATEGORIA),
-                          FOREIGN KEY(t_kod) REFERENCES TERMEK(T_KOD)
+    kategoria VARCHAR2(40) NOT NULL,
+	t_kod VARCHAR2(40),
+	megrendelt_db NUMBER(38),
+	FOREIGN KEY(kategoria) REFERENCES KATEGORIA(KATEGORIA),
+	FOREIGN KEY(t_kod) REFERENCES TERMEK(T_KOD)
 
 );
 
 
 
--- A T�rzsv�s�rl� t�bla attr�b�tuma: kedvezm�ny (bool)
+-- A T�rzsv�s�rl� t�bla attr�b�tuma: kedvezm�ny (bool) 
 
 create table TORZSVASARLO(
-                             kedvezmeny NUMBER(1),
-                             fel_nev VARCHAR2(20),
-                             FOREIGN KEY(fel_nev) REFERENCES FELHASZNALO(FEL_NEV)
+	kedvezmeny NUMBER(1),
+	fel_nev VARCHAR2(20),
+	FOREIGN KEY(fel_nev) REFERENCES FELHASZNALO(FEL_NEV)
 );
 
 -- A Comment t�bla attrib�tumai: T_k�d, Fel_n�v, D�tum
 
 create table KOMMENT(
-                        t_kod VARCHAR2(40),
-                        fel_nev VARCHAR2(40),
-                        komment VARCHAR2(1000),
-                        datum_comment DATE,
-                        FOREIGN KEY(t_kod) REFERENCES TERMEK(T_KOD),
-                        FOREIGN KEY(fel_nev) REFERENCES FELHASZNALO(FEL_NEV)
+	t_kod VARCHAR2(40),
+	fel_nev VARCHAR2(40),
+	komment VARCHAR2(1000),
+	datum_comment DATE,
+	FOREIGN KEY(t_kod) REFERENCES TERMEK(T_KOD),
+	FOREIGN KEY(fel_nev) REFERENCES FELHASZNALO(FEL_NEV)
 );
 
 --kategoria
