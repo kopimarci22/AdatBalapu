@@ -47,8 +47,9 @@ html {
 }
 /*Főoldal vége*/
 /*Regisztráció*/
-#prob{
+.prob{
     color: black;
+
 }
 #regist{
     text-align: end;
