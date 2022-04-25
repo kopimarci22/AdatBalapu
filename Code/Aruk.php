@@ -21,8 +21,7 @@
    <?php
       include "databaseconn.php";
       $conn = DBconnection::getInstance();
-
-       $stid2 = oci_parse($conn->getConnection(), 'SELECT nev, ar, db_szam FROM TERMEK WHERE db_szam>0 order by id');
+      $stid2 = oci_parse($conn->getConnection(), 'SELECT nev, ar, db_szam,kategoria FROM TERMEK WHERE db_szam>0 order by kategoria');
 
    if(!$stid2) {
    	$e = oci_error($conn->getConnection(), $stid2);
@@ -49,9 +48,12 @@
         print "<tr><td>Termék Neve: </td><th>" .$row ['NEV'] . "</th></tr>" ;
         print "<tr><td>Termék Ára: </td><th>" . $row['AR'] . " FTS" . "</th></tr>" ;
         print "<tr><td>Rendelkezésre álló mennyiség: </td><th>" . $row['DB_SZAM'] . " Darab" . "</th></tr>" ;
+        print "<tr><td>Kategória: </td><th>" . $row['KATEGORIA'] . "</th></tr>" ;
+        print "<tr><td>Mennyiség: </td><th><input type='number' name='mennyiseg' min='0' max='".$row['DB_SZAM']."'></th></tr>" ;
 
-       if(isset($_SESSION['Felhnev'])){
-           print "<form method='POST' action='Kosar.php.php' accept-charset='utf-8'>";
+
+       if(isset($_SESSION[''])){
+           print "<form method='POST' action='Kosar.php' accept-charset='utf-8'>";
            print "</table>\n";
            print "<div class='form-group'>";
            print "<label for='amount'>Darabszám</label>";

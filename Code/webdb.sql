@@ -5,204 +5,202 @@ DROP TABLE SZAMLA;
 DROP TABLE MEGRENDELES;
 DROP TABLE KOSAR;
 DROP TABLE TERMEK;
-DROP TABLE KATEGORIA;
 DROP TABLE FELHASZNALO;
 DROP TABLE ADMIN;
+DROP TABLE KATEGORIA;
 
-
--- A Admin tábla attribútumai: Admin_név, Admin_jelszó
-
-create table ADMIN(
-	admin_nev VARCHAR2(40),
-	admin_jelszo VARCHAR2(20),
-	PRIMARY KEY(admin_nev)
-);
-
---A User tábla attribútumai: Fel_név, Jelszo, Név, Lakcím, Szül_datum, Email, Bankkartya, Login
-
-create table FELHASZNALO(
-	fel_nev VARCHAR2(20) NOT NUll,
-	jelszo VARCHAR2(21) NOT NUll,
-	nev VARCHAR2(40),
-	lakcim VARCHAR2(40),
-	szul_datum DATE,
-	email VARCHAR2(40) NOT NUll,
-	bankkartya NUMBER(38) NOT NULL,
-	PRIMARY KEY(fel_nev)
-); 
-
--- A Kategória tábla attribútumai: ID, Név
+-- A Kategï¿½ria tï¿½bla attribï¿½tumai: ID, Nï¿½v
 
 create table KATEGORIA(
-	nev VARCHAR2(40),
-	id NUMBER(38) NOT NULL,
-	PRIMARY KEY(id)
+    kategoria VARCHAR2(40) PRIMARY KEY NOT NULL
+
 );
 
--- A Termék tábla attribútumai: T_kód, név, db_szám, ár, ID
+
+-- A Admin tï¿½bla attribï¿½tumai: Admin_nï¿½v, Admin_jelszï¿½
+
+create table ADMIN(
+                      admin_nev VARCHAR2(40) PRIMARY KEY NOT NULL,
+                      admin_jelszo VARCHAR2(20)
+
+);
+
+--A User tï¿½bla attribï¿½tumai: Fel_nï¿½v, Jelszo, Nï¿½v, Lakcï¿½m, Szï¿½l_datum, Email, Bankkartya, Login
+
+create table FELHASZNALO(
+                            fel_nev VARCHAR2(20) PRIMARY KEY NOT NUll,
+                            jelszo VARCHAR2(21) NOT NUll,
+                            nev VARCHAR2(40),
+                            lakcim VARCHAR2(40),
+                            szul_datum DATE,
+                            email VARCHAR2(40) NOT NUll,
+                            bankkartya NUMBER(38) NOT NULL
+
+);
+
+
+
+-- A Termï¿½k tï¿½bla attribï¿½tumai: T_kï¿½d, nï¿½v, db_szï¿½m, ï¿½r, ID
 create table TERMEK(
-	t_kod VARCHAR2(40) NOT NULL,
-    ar NUMBER(38),
-	nev VARCHAR2(40) NOT NULL,
-	db_szam NUMBER(38) NOT NULL,
-	id NUMBER(38),
-	PRIMARY KEY(t_kod),
-	FOREIGN KEY(id) REFERENCES KATEGORIA(ID)
+                       t_kod VARCHAR2(40) PRIMARY KEY NOT NULL,
+                       ar NUMBER(38),
+                       nev VARCHAR2(40) NOT NULL,
+                       db_szam NUMBER(38) NOT NULL,
+                       kategoria  VARCHAR2(40),
+                       FOREIGN KEY(kategoria) REFERENCES KATEGORIA(KATEGORIA)
 );
 
--- A Kosár tábla attribútumai: Fel_nev, Idõpont, Ár, K_db_szám, T_kód, Check (Törzsvásárló-e bool), elerheto(elerheto-e)
+-- A Kosï¿½r tï¿½bla attribï¿½tumai: Fel_nev, Idï¿½pont, ï¿½r, K_db_szï¿½m, T_kï¿½d, Check (Tï¿½rzsvï¿½sï¿½rlï¿½-e bool), elerheto(elerheto-e)
 
 create table KOSAR(
-	fel_nev VARCHAR2(20),
-	idopont DATE,
-	ar NUMBER(38),
-	k_db_szam NUMBER(38),
-	t_kod VARCHAR2(20),
-	check_ NUMBER(1),
-	elerheto NUMBER(1),
-	FOREIGN KEY(fel_nev) REFERENCES FELHASZNALO(FEL_NEV),
-	FOREIGN KEY(t_kod) REFERENCES TERMEK(T_KOD)
+                      fel_nev VARCHAR2(20),
+                      idopont DATE,
+                      ar NUMBER(38),
+                      k_db_szam NUMBER(38),
+                      t_kod VARCHAR2(20),
+                      check_ NUMBER(1),
+                      elerheto NUMBER(1),
+                      FOREIGN KEY(fel_nev) REFERENCES FELHASZNALO(FEL_NEV),
+                      FOREIGN KEY(t_kod) REFERENCES TERMEK(T_KOD)
 );
 
--- A Megrendeles tábla attribútumai: M_ID, Fel_nev, Dátum, K_ár, Check_db, T_kód, Állapot
+-- A Megrendeles tï¿½bla attribï¿½tumai: M_ID, Fel_nev, Dï¿½tum, K_ï¿½r, Check_db, T_kï¿½d, ï¿½llapot
 
 
 create table MEGRENDELES(
-	m_id NUMBER(38) NOT NULL,
-	fel_nev VARCHAR2(40),
-	datum DATE,
-	k_ar NUMBER(38),
-	check_db NUMBER(38),
-	t_kod VARCHAR2(40),
-	allapot VARCHAR2(40),
-	PRIMARY KEY(m_id),
-	FOREIGN KEY(fel_nev) REFERENCES FELHASZNALO(FEL_NEV),
-	FOREIGN KEY(t_kod) REFERENCES TERMEK(T_KOD)
+                            m_id NUMBER(38) PRIMARY KEY NOT NULL,
+                            fel_nev VARCHAR2(40),
+                            datum DATE,
+                            k_ar NUMBER(38),
+                            check_db NUMBER(38),
+                            t_kod VARCHAR2(40),
+                            allapot VARCHAR2(40),
+                            FOREIGN KEY(fel_nev) REFERENCES FELHASZNALO(FEL_NEV),
+                            FOREIGN KEY(t_kod) REFERENCES TERMEK(T_KOD)
 );
 
--- A Számla tábla attribútumai: M_ID, Fel_név, Kelte, SZ_ID
+-- A Szï¿½mla tï¿½bla attribï¿½tumai: M_ID, Fel_nï¿½v, Kelte, SZ_ID
 
 create table SZAMLA(
-	m_id NUMBER(38),
-	fel_nev VARCHAR2(40),
-	kelte DATE,
-	sz_id NUMBER(38),
-	PRIMARY KEY(sz_id),
-    FOREIGN	KEY(m_id) REFERENCES MEGRENDELES(M_ID),
-	FOREIGN KEY(fel_nev) REFERENCES FELHASZNALO(FEL_NEV)
+                       m_id NUMBER(38),
+                       fel_nev VARCHAR2(40),
+                       kelte DATE,
+                       sz_id NUMBER(38) PRIMARY KEY NOT NULL,
+                       FOREIGN	KEY(m_id) REFERENCES MEGRENDELES(M_ID),
+                       FOREIGN KEY(fel_nev) REFERENCES FELHASZNALO(FEL_NEV)
 );
 
--- A Kedvencek tábla attribútumai: ID, T_Kód, Megrendelt_db
+-- A Kedvencek tï¿½bla attribï¿½tumai: ID, T_Kï¿½d, Megrendelt_db
 
 
 create table KEDVENCEK(
-	id NUMBER(38) NOT NULL,
-	t_kod VARCHAR2(40),
-	megrendelt_db NUMBER(38),
-	FOREIGN KEY(id) REFERENCES KATEGORIA(ID),
-	FOREIGN KEY(t_kod) REFERENCES TERMEK(T_KOD)
+                          kategoria VARCHAR2(40) NOT NULL,
+                          t_kod VARCHAR2(40),
+                          megrendelt_db NUMBER(38),
+                          FOREIGN KEY(kategoria) REFERENCES KATEGORIA(KATEGORIA),
+                          FOREIGN KEY(t_kod) REFERENCES TERMEK(T_KOD)
 
 );
 
 
 
--- A Törzsvásárló tábla attríbútuma: kedvezmény (bool) 
+-- A Tï¿½rzsvï¿½sï¿½rlï¿½ tï¿½bla attrï¿½bï¿½tuma: kedvezmï¿½ny (bool)
 
 create table TORZSVASARLO(
-	kedvezmeny NUMBER(1),
-	fel_nev VARCHAR2(20),
-	FOREIGN KEY(fel_nev) REFERENCES FELHASZNALO(FEL_NEV)
+                             kedvezmeny NUMBER(1),
+                             fel_nev VARCHAR2(20),
+                             FOREIGN KEY(fel_nev) REFERENCES FELHASZNALO(FEL_NEV)
 );
 
--- A Comment tábla attribútumai: T_kód, Fel_név, Dátum
+-- A Comment tï¿½bla attribï¿½tumai: T_kï¿½d, Fel_nï¿½v, Dï¿½tum
 
 create table KOMMENT(
-	t_kod VARCHAR2(40),
-	fel_nev VARCHAR2(40),
-	komment VARCHAR2(1000),
-	datum_comment DATE,
-	FOREIGN KEY(t_kod) REFERENCES TERMEK(T_KOD),
-	FOREIGN KEY(fel_nev) REFERENCES FELHASZNALO(FEL_NEV)
+                        t_kod VARCHAR2(40),
+                        fel_nev VARCHAR2(40),
+                        komment VARCHAR2(1000),
+                        datum_comment DATE,
+                        FOREIGN KEY(t_kod) REFERENCES TERMEK(T_KOD),
+                        FOREIGN KEY(fel_nev) REFERENCES FELHASZNALO(FEL_NEV)
 );
 
 --kategoria
-INSERT INTO Kategoria VALUES('Édesség','1');
-INSERT INTO Kategoria VALUES('Üditõ','2');
-INSERT INTO Kategoria VALUES('Pékáru','3');
-INSERT INTO Kategoria VALUES('Alkoholos italok','4');
-INSERT INTO Kategoria VALUES('Húsok','5');
-INSERT INTO Kategoria VALUES('Tejtermék','6');
-INSERT INTO Kategoria VALUES('Kert','7');
-INSERT INTO Kategoria VALUES('Férfi ruházat','8');
-INSERT INTO Kategoria VALUES('Nõi ruházat','9');
+INSERT INTO Kategoria VALUES('Edesseg');
+INSERT INTO Kategoria VALUES('Uditok');
+INSERT INTO Kategoria VALUES('Pekaru');
+INSERT INTO Kategoria VALUES('Alkoholos italok');
+INSERT INTO Kategoria VALUES('Husok');
+INSERT INTO Kategoria VALUES('Tejtermek');
+INSERT INTO Kategoria VALUES('Kert');
+INSERT INTO Kategoria VALUES('Ferfi ruhazat');
+INSERT INTO Kategoria VALUES('Noi ruhazat');
 
---édesség
-INSERT INTO Termek VALUES('835555917','500','Sport csoki','200','1');
-INSERT INTO Termek VALUES('987664321','5000','Nuttela','1000','1');
-INSERT INTO Termek VALUES('100000000','100','Nyalóka','100','1');
-INSERT INTO Termek VALUES('100000001','4500','Édesség kosár','10','1');
-INSERT INTO Termek VALUES('858868509','700','Fehér csoki','50','1');
-INSERT INTO Termek VALUES('100000024','210','Milka egész mogyorós','30','1');
---üditõ
-INSERT INTO Termek VALUES('100000002','450','Coca Cola','1000','2');
-INSERT INTO Termek VALUES('100000010','499','Fanta','23','2');
-INSERT INTO Termek VALUES('100568010','479','Pepsi','30','2');
-INSERT INTO Termek VALUES('106550010','489','7up','25','2');
---pékáru
-INSERT INTO Termek VALUES('959492561','22','Vizes zsemle','100','3');
-INSERT INTO Termek VALUES('725342049','25','Tejes kifli','80','3');
-INSERT INTO Termek VALUES('363421744','99','Baugette','40','3');
-INSERT INTO Termek VALUES('407074484','250','Kakós csiga','35','3');
-INSERT INTO Termek VALUES('100000003','501','Csokis fánk','20','3');
+--ï¿½dessï¿½g
+INSERT INTO Termek VALUES('835555917','500','Sport csoki','200','Edesseg');
+INSERT INTO Termek VALUES('987664321','5000','Nuttela','1000','Edesseg');
+INSERT INTO Termek VALUES('100000000','100','Nyalï¿½ka','100','Edesseg');
+INSERT INTO Termek VALUES('100000001','4500','ï¿½dessï¿½g kosï¿½r','10','Edesseg');
+INSERT INTO Termek VALUES('858868509','700','Fehï¿½r csoki','50','Edesseg');
+INSERT INTO Termek VALUES('100000024','210','Milka egï¿½sz mogyorï¿½s','30','Edesseg');
+--ï¿½ditï¿½
+INSERT INTO Termek VALUES('100000002','450','Coca Cola','1000','Uditok');
+INSERT INTO Termek VALUES('100000010','499','Fanta','23','Uditok');
+INSERT INTO Termek VALUES('100568010','479','Pepsi','30','Uditok');
+INSERT INTO Termek VALUES('106550010','489','7up','25','Uditok');
+--pï¿½kï¿½ru
+INSERT INTO Termek VALUES('959492561','22','Vizes zsemle','100','Pekaru');
+INSERT INTO Termek VALUES('725342049','25','Tejes kifli','80','Pekaru');
+INSERT INTO Termek VALUES('363421744','99','Baugette','40','Pekaru');
+INSERT INTO Termek VALUES('407074484','250','Kakï¿½s csiga','35','Pekaru');
+INSERT INTO Termek VALUES('100000003','501','Csokis fï¿½nk','20','Pekaru');
 --alkoholos italok
-INSERT INTO Termek VALUES('322035247','9000','Tokaji aszú','10','4');
-INSERT INTO Termek VALUES('485948820','15000','Johhny Walker','10','4');
-INSERT INTO Termek VALUES('478765428','12000','Törley Pezsgõ Édes','5','4');
-INSERT INTO Termek VALUES('453178555','14000','Villa Rustica','8','4');
-INSERT INTO Termek VALUES('100000011','2352','Rosé bor','123','4');
-INSERT INTO Termek VALUES('100000012','23152','Glensfiddich','24','4');
-INSERT INTO Termek VALUES('100000013','12251','Jack Daniels Single barrel','2','4');
-INSERT INTO Termek VALUES('100056987','46526','Macalan 30','5','4');
-INSERT INTO Termek VALUES('100365489','65443','Macallan 35','2','4');
---hús
-INSERT INTO Termek VALUES('75358149','3500','Marha comb','124','5');
-INSERT INTO Termek VALUES('863057879','1500','Disznó darált hús','12','5');
-INSERT INTO Termek VALUES('69368791','2100','Kacsa comb','100','5');
-INSERT INTO Termek VALUES('564821566','6001','Pick szalámi','12','5');
-INSERT INTO Termek VALUES('100000004','234','Virsli','100','5');
-INSERT INTO Termek VALUES('100000005','1000','Tarja','30','5');
-INSERT INTO Termek VALUES('100000015','2356','Kolbász','2000','5');
-INSERT INTO Termek VALUES('100000023','4501','Kacsa pecsenye','3','5');
---tejtermék
-INSERT INTO Termek VALUES('37639232','399','2.8% zsítartalmú tej','100','6');
-INSERT INTO Termek VALUES('100000025','430','Laktózmentes tej','300','6');
-INSERT INTO Termek VALUES('702639322','1500','Trappista sajt','500','6');
-INSERT INTO Termek VALUES('840423575','4300','Cheddar sajt','100','6');
+INSERT INTO Termek VALUES('322035247','9000','Tokaji aszï¿½','10','Alkoholos italok');
+INSERT INTO Termek VALUES('485948820','15000','Johhny Walker','10','Alkoholos italok');
+INSERT INTO Termek VALUES('478765428','12000','Tï¿½rley Pezsgï¿½ ï¿½des','5','Alkoholos italok');
+INSERT INTO Termek VALUES('453178555','14000','Villa Rustica','8','Alkoholos italok');
+INSERT INTO Termek VALUES('100000011','2352','Rosï¿½ bor','123','Alkoholos italok');
+INSERT INTO Termek VALUES('100000012','23152','Glensfiddich','24','Alkoholos italok');
+INSERT INTO Termek VALUES('100000013','12251','Jack Daniels Single barrel','2','Alkoholos italok');
+INSERT INTO Termek VALUES('100056987','46526','Macalan 30','5','Alkoholos italok');
+INSERT INTO Termek VALUES('100365489','65443','Macallan 35','2','Alkoholos italok');
+--hï¿½s
+INSERT INTO Termek VALUES('75358149','3500','Marha comb','124','Husok');
+INSERT INTO Termek VALUES('863057879','1500','Disznï¿½ darï¿½lt hï¿½s','12','Husok');
+INSERT INTO Termek VALUES('69368791','2100','Kacsa comb','100','Husok');
+INSERT INTO Termek VALUES('564821566','6001','Pick szalï¿½mi','12','Husok');
+INSERT INTO Termek VALUES('100000004','234','Virsli','100','Husok');
+INSERT INTO Termek VALUES('100000005','1000','Tarja','30','Husok');
+INSERT INTO Termek VALUES('100000015','2356','Kolbï¿½sz','2000','Husok');
+INSERT INTO Termek VALUES('100000023','4501','Kacsa pecsenye','3','Husok');
+--tejtermï¿½k
+INSERT INTO Termek VALUES('37639232','399','2.8% zsï¿½tartalmï¿½ tej','100','Tejtermek');
+INSERT INTO Termek VALUES('100000025','430','Laktï¿½zmentes tej','300','Tejtermek');
+INSERT INTO Termek VALUES('702639322','1500','Trappista sajt','500','Tejtermek');
+INSERT INTO Termek VALUES('840423575','4300','Cheddar sajt','100','Tejtermek');
 --kert
-INSERT INTO Termek VALUES('609805672','6000','Kapa','100','7');
-INSERT INTO Termek VALUES('37180702','35000','Fûnyiró','10','7');
-INSERT INTO Termek VALUES('94141745','20000','Csákány','16','7');
-INSERT INTO Termek VALUES('100000016','23634','Locsoló rendszer','10','7');
-INSERT INTO Termek VALUES('100000018','65444','Kerti bútor szett','5','7');
-INSERT INTO Termek VALUES('100000020','3256','Kerti törpe','1','7');
+INSERT INTO Termek VALUES('609805672','6000','Kapa','100','Kert');
+INSERT INTO Termek VALUES('37180702','35000','Funyiro','10','Kert');
+INSERT INTO Termek VALUES('94141745','20000','Csakany','16','Kert');
+INSERT INTO Termek VALUES('100000016','23634','Locsolo rendszer','10','Kert');
+INSERT INTO Termek VALUES('100000018','65444','Kerti butor szett','5','Kert');
+INSERT INTO Termek VALUES('100000020','3256','Kerti torpe','1','Kert');
 --ferfiruhazat
-INSERT INTO Termek VALUES('509314985','2500','Slim ing több színben S/M/L/XL/XXL','60','8');
-INSERT INTO Termek VALUES('845703297','1700','Férfi fürdõnadrág S/M/L/XL/XXL','6','8');
-INSERT INTO Termek VALUES('959762445','200','Zokni','60','8');
-INSERT INTO Termek VALUES('785377340','1200','Férfi alsó nemû S/M/L/XL/XXL','6','8');
-INSERT INTO Termek VALUES('100000014','6452','Farmer férfi','30','8');
-INSERT INTO Termek VALUES('100000021','9876','Kapucnis pullóver ','2','8');
+INSERT INTO Termek VALUES('509314985','2500','Slim ing tï¿½bb szï¿½nben S/M/L/XL/XXL','60','Ferfi ruhazat');
+INSERT INTO Termek VALUES('845703297','1700','Fï¿½rfi fï¿½rdï¿½nadrï¿½g S/M/L/XL/XXL','6','Ferfi ruhazat');
+INSERT INTO Termek VALUES('959762445','200','Zokni','60','Ferfi ruhazat');
+INSERT INTO Termek VALUES('785377340','1200','Fï¿½rfi alsï¿½ nemï¿½ S/M/L/XL/XXL','6','Ferfi ruhazat');
+INSERT INTO Termek VALUES('100000014','6452','Farmer fï¿½rfi','30','Ferfi ruhazat');
+INSERT INTO Termek VALUES('100000021','9876','Kapucnis pullï¿½ver ','2','Ferfi ruhazat');
 --noiruhazat
-INSERT INTO Termek VALUES('100000006','2501','Farmer kék','2','9');
-INSERT INTO Termek VALUES('100000007','2314','Blúz','20','9');
-INSERT INTO Termek VALUES('100000008','3200','Rövid hosszú szoknya','231','9');
-INSERT INTO Termek VALUES('100000009','8000','Pulóver','240','9');
-INSERT INTO Termek VALUES('100000022','5432','Nõi cipõ','20','9');
+INSERT INTO Termek VALUES('100000006','2501','Farmer kï¿½k','2','Noi ruhazat');
+INSERT INTO Termek VALUES('100000007','2314','Blï¿½z','20','Noi ruhazat');
+INSERT INTO Termek VALUES('100000008','3200','Rï¿½vid hosszï¿½ szoknya','231','Noi ruhazat');
+INSERT INTO Termek VALUES('100000009','8000','Pulï¿½ver','240','Noi ruhazat');
+INSERT INTO Termek VALUES('100000022','5432','Nï¿½i cipï¿½','20','Noi ruhazat');
 
 
 
 --User
-INSERT INTO FELHASZNALO VALUES('BGyorgy','szegeny','Balotay György', '1108 Budapest Gõzmozdony utca 16', '', 'bgeorge66@gmail.com', 5580107117596718);
+INSERT INTO FELHASZNALO VALUES('BGyorgy','szegeny','Balotay Gyï¿½rgy', '1108 Budapest Gï¿½zmozdony utca 16', '', 'bgeorge66@gmail.com', 5580107117596718);
 INSERT INTO FELHASZNALO VALUES('Coneflower','m55w6RyIykhcP6AO2Osy','Brown Sharon','Becklow  Tunnel, 9921','','Sharon_Brown2873@tonsy.org', 5251229787505205);
 INSERT INTO FELHASZNALO VALUES('African Violet','4mVWAgmrYKchD0ISBFmZ','Knight Candice','Bel   Tunnel, 1106','','Candice_Knight608@liret.org', 5373040081575478);
 INSERT INTO FELHASZNALO VALUES('Alstroemeria','SJonq5NBznCgfEv8OMDG','Bell William','Fairholt   Drive, 1965','','William_Bell2802@irrepsy.com', 5147883396657969);
@@ -294,3 +292,4 @@ INSERT INTO Admin VALUES('Marci', 'macilaci');
 INSERT INTO Admin VALUES('Gergo', 'gitgut');
 
 --
+commit;
