@@ -262,7 +262,7 @@ if(!$r){
         print "</tr>";
         print "<tr>";
         print "</table>";
-    if(isset($_SESSION['Felhnev'])){
+    if(isset($_SESSION['online'])){
         print "<form method='POST' action='order.php' accept-charset='utf-8'>";
         print "</table>\n";
         print "<div class='form-group'>";

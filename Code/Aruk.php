@@ -22,10 +22,10 @@
       include "databaseconn.php";
       $conn = DBconnection::getInstance();
 
-       $stid2 = oci_parse($conn->getConnection(), 'SELECT * FROM TERMEK WHERE db_szam>0');
+       $stid2 = oci_parse($conn->getConnection(), 'SELECT nev, ar, db_szam FROM TERMEK WHERE db_szam>0 order by id');
 
    if(!$stid2) {
-   	$e = oci_error($conn->getConnection(), $query);
+   	$e = oci_error($conn->getConnection(), $stid2);
    	trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
    }
    $r = oci_execute($stid2);
@@ -35,15 +35,36 @@
    }
     echo "asd";
 
-    while($row = oci_fetch_array($stid2, OCI_BOTH)) {
+  /* while (($user = oci_fetch_array($stid2, OCI_BOTH)) != false) {
+       echo "<tr>";
+       echo "<tr><td>".$user['NEV']."</td> </tr> ";
+       echo "<tr><td>".$user['AR']."</td></tr>";
+       echo "</tr>";
+   }*/
+
+   while(($row = oci_fetch_array($stid2, OCI_BOTH)) != false) {
 
 
-           echo "<table border='1'>\n";
-           echo "<tr><td>Termék Neve: </td><th>" . $row['nev'] . "</th></tr>" ;
-           echo "<tr><td>Termék Ára: </td><th>" . $row['ar'] . " FORINT" . "</th></tr>" ;
-           echo "<tr><td>Rendelkezésre álló mennyiség: </td><th>" . $row['db_szam'] . " Db" . "</th></tr>" ;
+        print "<table border='1'>\n";
+        print "<tr><td>Termék Neve: </td><th>" .$row ['NEV'] . "</th></tr>" ;
+        print "<tr><td>Termék Ára: </td><th>" . $row['AR'] . " FTS" . "</th></tr>" ;
+        print "<tr><td>Rendelkezésre álló mennyiség: </td><th>" . $row['DB_SZAM'] . " Darab" . "</th></tr>" ;
 
+       if(isset($_SESSION['Felhnev'])){
+           print "<form method='POST' action='Kosar.php.php' accept-charset='utf-8'>";
+           print "</table>\n";
+           print "<div class='form-group'>";
+           print "<label for='amount'>Darabszám</label>";
+           print "<input type='number' name='amount' class='form-control' id='darab' placeholder='Darabszám' required>";
+           print "<input type='hidden' name='name' value='$row[NEV]'/>";
+           print "<input type='hidden' name='ar' value='$row[AR]'/>";
 
+           print "<input type='submit' class='btnAddAction' value='Kosárba' placeholder='Megrendel' ></input>";
+           print "</div>";
+           print "</form>";
+       }
+
+       print "<br>";
 
 
    }
