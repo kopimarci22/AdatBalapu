@@ -11,6 +11,7 @@
             <li class="lik"><a href="Fooldal.php" class="lika" style="color: black">Főoldal</a></li>
             <li class="lik"><a href="Aruk.php" class="lika" style="color: blueviolet">Áruk</a></li>
             <li class="lik"><a href="Kosar.php" class="lika" style="color: black">Kosár</a></li>
+            <li class="lik"><a href="add.php" class="lika" style="color: black">Add</a></li>
             <li class="lik"><a href="Login.php"  class="lika" style="color: black">Login</a></li>
             <li class="lik"><a href="Regist.php"  class="lika" style="color: black">Registration</a></li>
         </ul></nav>
