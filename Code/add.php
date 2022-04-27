@@ -11,6 +11,7 @@
 <body>
 
 <?php
+session_start();
 include "databaseconn.php";
 $conn = DBconnection::getInstance();
 
@@ -63,6 +64,7 @@ if(!$r){
         </div>
         <div class="text-center">
             <input type="submit" class="btn btn-outline-dark" value="Mentés"></input>
+            <a href="Aruk.php">Aruk</a>
         </div>
     </form>
 </div>

@@ -19,7 +19,7 @@
 </body>
 </html>
 <?php
-
+session_start();
 $conn = oci_connect('DAVID', 'asd123','localhost/XE');
 if(!$conn){
 
@@ -28,8 +28,13 @@ if(!$conn){
 }
 $query='SELECT * FROM FElHASZNALO';
 $stid= oci_parse($conn, $query);
+$amdin='SELECT * FROM ADMIN ';
+$amdin2=oci_parse($conn, $amdin);
 
-
+if (!$amdin2){
+    $e=oci_error($conn);
+    trigger_error(htmlentities($e['message'],ENT_QUOTES),E_USER_ERROR);
+}
 
 if (!$stid){
     $e=oci_error($conn);
@@ -37,8 +42,12 @@ if (!$stid){
 }
 
 $r = oci_execute($stid);
+$a= oci_execute($amdin2);
 
-
+if (!$a){
+    $e = oci_error($amdin2);
+    trigger_error(htmlentities($e['message'],ENT_QUOTES),E_USER_ERROR);
+}
 if (!$r){
     $e = oci_error($stid);
     trigger_error(htmlentities($e['message'],ENT_QUOTES),E_USER_ERROR);
@@ -46,6 +55,7 @@ if (!$r){
 $felhasznalo = "";
 $password = "";
 $errors[] = "";
+$admin = "";
 if (isset($_POST["belep"])) {
     $felhasznalo = $_POST["felnev"];
     $password = $_POST["jelszo"];
@@ -58,13 +68,21 @@ if (isset($_POST["belep"])) {
 
         }
     }
-
+    while (($row = oci_fetch_array($amdin2, OCI_BOTH)) != false) {
+        if ($row["ADMIN_NEV"] === $felhasznalo && $row["ADMIN_JELSZO"] === $password) {
+            $belep=true;
+            $admin=$felhasznalo;
+        }
+    }
 
 
     if ($belep) {
 
         oci_close($conn);
         header("Location: Fooldal.php");
+        $_SESSION["username"] =$felhasznalo;
+        $_SESSION["admin"] =$admin;
+
     } else {
         echo "Hibás felhasználónév vagy jelszó!";
 
