@@ -33,7 +33,11 @@ session_start();
 
       </ul></nav>
       <?php if ( !empty($_SESSION["username"]) ||  !empty($_SESSION["admin"])):?>
-      <input type="submit" name="logout" value="Logout" id="Logout">
+          <form id="logout" action="Fooldal.php" method="post" enctype="multipart/form-data" autocomplete="off">
+              <fieldset id="logout" >
+                  <input type="submit" name="logout" value="Logout" id="registgomb">
+              </fieldset>
+          </form>
       <?php endif;
       ?>
 

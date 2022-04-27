@@ -70,14 +70,14 @@ session_start();
             print "<tr><td>Mennyiség: </td><th><input type='number' name='mennyiseg' min='0' max='".$row['DB_SZAM']."'></th></tr>" ;
 
 
-            if(isset($_SESSION[''])){
+            if(!empty($_SESSION["username"])){
                 print "<form method='POST' action='Kosar.php' accept-charset='utf-8'>";
                 print "</table>\n";
                 print "<div class='form-group'>";
                 print "<label for='amount'>Darabszám</label>";
                 print "<input type='number' name='amount' class='form-control' id='darab' placeholder='Darabszám' required>";
-                print "<input type='hidden' name='name' value='$row[NEV]'/>";
-                print "<input type='hidden' name='ar' value='$row[AR]'/>";
+                print "<input type='hidden' name='name' 'value='$row[NEV]'/>";
+                print "<input type='hidden' name='ar' 'value=$row[AR]'/>";
 
                 print "<input type='submit' class='btnAddAction' value='Kosárba' placeholder='Megrendel' ></input>";
                 print "</div>";

@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>SparTa</title>
+    <link rel="stylesheet" href="All.css"/>
 
 </head>
 <style>
