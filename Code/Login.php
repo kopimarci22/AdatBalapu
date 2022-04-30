@@ -1,11 +1,28 @@
 <?php session_start(); ?>
 <?php
+<<<<<<< Updated upstream
 //include "databaseConnection.php";
 $con = oci_connect('MARTON', '123456aA', 'localhost/XE', "UTF8") or die("Hibás csatlakozás!");
 
 if (!$con) {
     $m = oci_error();
     trigger_error(htmlentities($m['message'],ENT_QUOTES),E_USER_ERROR);
+=======
+session_start();
+$conn = oci_connect('marton', '123456aA','localhost/XE');
+if(!$conn){
+    $e=oci_error();
+    trigger_error(htmlentities($e['message'],ENT_QUOTES),E_USER_ERROR);
+}
+$query='SELECT * FROM FElHASZNALO';
+$stid= oci_parse($conn, $query);
+$amdin='SELECT * FROM ADMIN ';
+$amdin2=oci_parse($conn, $amdin);
+
+if (!$amdin2){
+    $e=oci_error($conn);
+    trigger_error(htmlentities($e['message'],ENT_QUOTES),E_USER_ERROR);
+>>>>>>> Stashed changes
 }
 $query = "select fel_nev, jelszo from FELHASZNALO where fel_nev = :username and jelszo= :password";
 $stid = oci_parse($con, $query);
