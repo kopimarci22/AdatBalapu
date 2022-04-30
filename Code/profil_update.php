@@ -28,5 +28,5 @@ if(oci_execute($res)===false){
 }else{
     //oci_commit($connection->getConnection());
     echo "Sikeres felvitel";
-    //header("Location: http://localhost/Code/profil.php");
+    header("Location: http://localhost/Code/profil.php");
 }

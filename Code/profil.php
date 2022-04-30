@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,7 +44,8 @@
 <div class="container">
         <div class="card-body">
             <h4 class="card-title">Legkirályabb Felhasználó</h4>
-            <p id="nev" class="card-text"><?php session_start(); echo "Bejelentkezve: " . $_SESSION["username"]?></p>
+
+
         </div>
     </div>
 

@@ -10,6 +10,7 @@ session_start();
       <link rel="stylesheet" href="All.css"/>
   </head>
   <body>
+  <p id="nev" class="card-text"><?php echo "Bejelentkezve: " . $_SESSION["username"]?></p>
   <div id="helpdiv"><nav><ul id="menu">
               <?php if ( empty($_SESSION["username"]) ):?>
                   <li class="lik"><a href="Fooldal.php" class="lika" style="color: blueviolet">Főoldal</a></li>

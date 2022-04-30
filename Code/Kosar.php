@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "databaseconn.php";
+
 ?>
 
 <!DOCTYPE html>
@@ -11,6 +11,7 @@ include "databaseconn.php";
     <link rel="stylesheet" href="All.css"/>
 </head>
 <body>
+<p id="nev" class="card-text"><?php echo "Bejelentkezve: " . $_SESSION["username"]?></p>
 <div id="helpdiv"><nav><ul id="menu">
             <?php if ( empty($_SESSION["username"]) ):?>
                 <li class="lik"><a href="Fooldal.php" class="lika" style="color: black">Főoldal</a></li>
@@ -35,6 +36,63 @@ include "databaseconn.php";
             ?>
         </ul></nav>
 </div>
+<?php
+include "databaseconn.php";
+$conn = DBconnection::getInstance();
+$stid = oci_parse($conn->getConnection(), "SELECT FEL_NEV,  FROM KOSAR WHERE FelhNev=:felhnev and megrendelt=0");
+oci_bind_by_name($stid, ':felhnev', $_SESSION['username']);
+$stid2 = oci_parse($conn->getConnection(), "SELECT TorzsvE FROM TORZSVASARLO WHERE FelhNev=:felhnev");
+oci_bind_by_name($stid2, ':felhnev', $_SESSION['username']);
 
+if(!$stid || !$stid2) {
+    $e = oci_error($conn);
+    trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
+}
+$r = oci_execute($stid);
+$t = oci_execute($stid2);
+if(!$r || !$t){
+    $e = oci_error($stid);
+    trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
+    $w = oci_error($stid2);
+    trigger_error(htmlentities($w['message'], ENT_QUOTES), E_USER_ERROR);
+}
+print "<table border='1'>\n";
+
+$value = 0;
+//táblázat felső sora h mi is látható
+
+print "Ez itt a kosarad és tartalma: ";
+print "<tr><th>Termék Neve: </th><th>Darab a kosaradban: </th><th>Ára per db: </th><th>Törlés </th></tr>";
+while($row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS)) {
+    $t = oci_execute($stid2);
+    print "<tr>\n";
+    print "<form method='POST' action='torol.php'>";
+    $value += $row['AR'] * $row['DARAB'];
+    print "<tr><td>". $row['NEV']. "</td><td>". $row['DARAB']." Db".  "</td><td>". $row['AR']." Ft".  "</td><td><input type='submit' class='btn btn-info' name='delete' value='X'></td></tr>";
+    print "";
+    print "<input type='hidden' name='name' value='$_SESSION[Felhnev]'/>";
+    print "<input type='hidden' name='id' value='$row[ID]'/>";
+    print "</form>";
+    print "</tr>\n";
+
+}
+?>
+<form method='POST' action='megrendel.php'>
+    <?php
+    $torzsv = oci_fetch_array($stid2, OCI_ASSOC+OCI_RETURN_NULLS);
+    if($torzsv['TORZSVE'] == 1){
+        $value *= 0.9;
+    }
+    print "<input type='hidden' name='vegosszeg' value='$value'/>";
+
+    print "</table><br>\n";
+
+    print "Fizetendő összeg: " . $value . " Ft";
+    oci_free_statement($stid);
+    ?>
+    <input type='submit' class="btn btn-info" name="finish" value="Megrendel">
+</form>
+</div>
+</div>
 </body>
 </html>

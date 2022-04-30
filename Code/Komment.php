@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,20 +12,8 @@
 
 <body>
 <div>
-<?php
-include "databaseconn.php";
-$conn = DBconnection::getInstance();
-$stid2 = oci_parse($conn->getConnection(), 'SELECT * FROM TERMEK');
-if(!$stid2) {
-    $e = oci_error($conn->getConnection(), $stid2);
-    trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
-}
-$r = oci_execute($stid2);
-if(!$r){
-    $e = oci_error($stid2);
-    trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
-}
-?>
+
+    <p id="nev" class="card-text"><?php echo "Bejelentkezve: " . $_SESSION["username"]?></p>
     <div id="helpdiv"><nav><ul id="menu">
                 <?php if ( empty($_SESSION["username"]) ):?>
                     <li class="lik"><a href="Fooldal.php" class="lika" style="color: black">Főoldal</a></li>
@@ -47,6 +38,22 @@ if(!$r){
                 <?php endif;
                 ?>
             </ul></nav>
+
+<?php
+include "databaseconn.php";
+$conn = DBconnection::getInstance();
+$stid2 = oci_parse($conn->getConnection(), 'SELECT * FROM TERMEK');
+if(!$stid2) {
+    $e = oci_error($conn->getConnection(), $stid2);
+    trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
+}
+$r = oci_execute($stid2);
+if(!$r){
+    $e = oci_error($stid2);
+    trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
+}
+?>
+
 
 
         <h1 class="text-center" style="color: rgb(153,37,37);text-align: center; font-family: 'Times New Roman', Times, serif;">Nekünk számít az Ön véleménye!</h1>
