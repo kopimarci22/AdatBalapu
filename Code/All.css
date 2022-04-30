@@ -47,8 +47,14 @@ html {
 }
 /*Főoldal vége*/
 /*Regisztráció*/
+<<<<<<< HEAD
 #prob{
     color: black;
+=======
+.prob{
+    color: black;
+
+>>>>>>> David
 }
 #regist{
     text-align: end;

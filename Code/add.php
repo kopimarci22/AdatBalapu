@@ -3,6 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>SparTa</title>
+<<<<<<< HEAD
+=======
+    <link rel="stylesheet" href="All.css"/>
+>>>>>>> David
 
 </head>
 <style>
@@ -11,6 +15,10 @@
 <body>
 
 <?php
+<<<<<<< HEAD
+=======
+session_start();
+>>>>>>> David
 include "databaseconn.php";
 $conn = DBconnection::getInstance();
 
@@ -63,6 +71,10 @@ if(!$r){
         </div>
         <div class="text-center">
             <input type="submit" class="btn btn-outline-dark" value="Mentés"></input>
+<<<<<<< HEAD
+=======
+            <a href="Aruk.php">Aruk</a>
+>>>>>>> David
         </div>
     </form>
 </div>
