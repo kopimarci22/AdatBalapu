@@ -22,9 +22,9 @@ session_start();
             <?php elseif(empty($_SESSION["admin"]) ):;?>
                 <li class="lik"><a href="Fooldal.php" class="lika" style="color: black">Főoldal</a></li>
                 <li class="lik"><a href="Aruk.php" class="lika" style="color: black">Áruk</a></li>
-                <li class="lik"><a href="Komment.php" class="lika" style="color: black">Áruk</a></li>
-                <li class="lik"><a href="Kosar.php" class="lika" style="color: black">Kosár</a></li>
-                <li class="lik"><a href="profil.php" class="lika" style="color: blueviolet">Profil</a></li>
+                <li class="lik"><a href="Komment.php" class="lika" style="color: black">Komment</a></li>
+                <li class="lik"><a href="Kosar.php" class="lika" style="color: blueviolet">Kosár</a></li>
+                <li class="lik"><a href="profil.php" class="lika" style="color: black">Profil</a></li>
 
 
             <?php else:?>

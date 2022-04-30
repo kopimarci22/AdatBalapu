@@ -10,7 +10,9 @@ session_start();
       <link rel="stylesheet" href="All.css"/>
   </head>
   <body>
+  <?php if ( !empty($_SESSION["username"]) ):?>
   <p id="nev" class="card-text"><?php echo "Bejelentkezve: " . $_SESSION["username"]?></p>
+  <?php endif;?>
   <div id="helpdiv"><nav><ul id="menu">
               <?php if ( empty($_SESSION["username"]) ):?>
                   <li class="lik"><a href="Fooldal.php" class="lika" style="color: blueviolet">Főoldal</a></li>
@@ -21,7 +23,7 @@ session_start();
               <?php elseif(empty($_SESSION["admin"]) ):;?>
                   <li class="lik"><a href="Fooldal.php" class="lika" style="color: blueviolet">Főoldal</a></li>
                   <li class="lik"><a href="Aruk.php" class="lika" style="color: black">Áruk</a></li>
-                  <li class="lik"><a href="Komment.php" class="lika" style="color: black">Áruk</a></li>
+                  <li class="lik"><a href="Komment.php" class="lika" style="color: black">Komment</a></li>
                   <li class="lik"><a href="Kosar.php" class="lika" style="color: black">Kosár</a></li>
                   <li class="lik"><a href="profil.php" class="lika" style="color: black">Profil</a></li>
 

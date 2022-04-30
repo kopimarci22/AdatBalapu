@@ -7,7 +7,7 @@ class DBconnection
     private function __construct()
     {
 
-        $connection = oci_connect('GERGOO', 'asd123', 'localhost/XE', "UTF8") or die("Hibás csatlakozás!");
+        $connection = oci_connect('DAVID', 'asd123', 'localhost/XE', "UTF8") or die("Hibás csatlakozás!");
 
 
         if (!$connection) {

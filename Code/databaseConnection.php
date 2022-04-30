@@ -5,7 +5,7 @@ class databaseConnection {
 
     private function __construct()
     {
-        $connection = oci_connect('MARTON', '123456aA', 'localhost/XE', "UTF8") or die("Hibás csatlakozás!");
+        $connection = oci_connect('DAVID', 'asd123', 'localhost/XE', "UTF8") or die("Hibás csatlakozás!");
         if (!$connection) {
             $m = oci_error();
             echo $m['message'], "\n";
