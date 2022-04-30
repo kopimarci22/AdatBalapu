@@ -23,33 +23,31 @@ if(!$r){
     trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
 }
 ?>
-<div class="container" id="linkek">
-
     <div id="helpdiv"><nav><ul id="menu">
-
                 <?php if ( empty($_SESSION["username"]) ):?>
                     <li class="lik"><a href="Fooldal.php" class="lika" style="color: black">Főoldal</a></li>
                     <li class="lik"><a href="Aruk.php" class="lika" style="color: black">Áruk</a></li>
-                    <li class="lik"><a href="Komment.php" class="lika" style="color: blueviolet">Komment</a></li>
+                    <li class="lik"><a href="Komment.php" class="lika" style="color: black">Komment</a></li>
                     <li class="lik"><a href="Kosar.php" class="lika" style="color: black">Kosár</a></li>
-
+                    <li class="lik"><a href="profil.php" class="lika" style="color: blueviolet">Profil</a></li>
+                    >
                 <?php elseif(empty($_SESSION["admin"]) ):;?>
                     <li class="lik"><a href="Fooldal.php" class="lika" style="color: black">Főoldal</a></li>
                     <li class="lik"><a href="Aruk.php" class="lika" style="color: black">Áruk</a></li>
-                    <li class="lik"><a href="Komment.php" class="lika" style="color: blueviolet">Komment</a></li>
+                    <li class="lik"><a href="Komment.php" class="lika" style="color: black">Áruk</a></li>
                     <li class="lik"><a href="Kosar.php" class="lika" style="color: black">Kosár</a></li>
+                    <li class="lik"><a href="profil.php" class="lika" style="color: blueviolet">Profil</a></li>
 
 
                 <?php else:?>
                     <li class="lik"><a href="Fooldal.php" class="lika" style="color: black">Főoldal</a></li>
                     <li class="lik"><a href="Aruk.php" class="lika" style="color: black">Áruk</a></li>
                     <li class="lik"><a href="Kosar.php" class="lika" style="color: blueviolet">Kosár</a></li>
-
                     <li class="lik"><a href="add.php" class="lika" style="color: black">Add</a></li>
                 <?php endif;
                 ?>
-
             </ul></nav>
+
 
         <h1 class="text-center" style="color: rgb(153,37,37);text-align: center; font-family: 'Times New Roman', Times, serif;">Nekünk számít az Ön véleménye!</h1>
     </div>

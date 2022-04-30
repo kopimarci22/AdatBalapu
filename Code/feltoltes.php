@@ -28,6 +28,7 @@ if(isset($_POST['itemid'])){
     }else{
         //oci_commit($connection->getConnection());
         echo "Sikeres felvitel";
+        header("Location: http://localhost/Code/add.php");
 
     }
 }

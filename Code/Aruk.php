@@ -12,21 +12,22 @@ session_start();
 <div id="helpdiv"><nav><ul id="menu">
             <?php if ( empty($_SESSION["username"]) ):?>
                 <li class="lik"><a href="Fooldal.php" class="lika" style="color: black">Főoldal</a></li>
-                <li class="lik"><a href="Aruk.php" class="lika" style="color: blueviolet">Áruk</a></li>
-                <li class="lik"><a href="Login.php"  class="lika" style="color: black">Login</a></li>
-                <li class="lik"><a href="Regist.php"  class="lika" style="color: black">Registration</a></li>
+                <li class="lik"><a href="Aruk.php" class="lika" style="color: black">Áruk</a></li>
+                <li class="lik"><a href="Komment.php" class="lika" style="color: black">Komment</a></li>
+                <li class="lik"><a href="profil.php" class="lika" style="color: blueviolet">Profil</a></li>
+                >
             <?php elseif(empty($_SESSION["admin"]) ):;?>
                 <li class="lik"><a href="Fooldal.php" class="lika" style="color: black">Főoldal</a></li>
-                <li class="lik"><a href="Aruk.php" class="lika" style="color: blueviolet">Áruk</a></li>
-                <li class="lik"><a href="Komment.php"  class="lika" style="color: black">Komment</a></li>
+                <li class="lik"><a href="Aruk.php" class="lika" style="color: black">Áruk</a></li>
+                <li class="lik"><a href="Komment.php" class="lika" style="color: black">Komment</a></li>
                 <li class="lik"><a href="Kosar.php" class="lika" style="color: black">Kosár</a></li>
+                <li class="lik"><a href="profil.php" class="lika" style="color: blueviolet">Profil</a></li>
 
 
             <?php else:?>
                 <li class="lik"><a href="Fooldal.php" class="lika" style="color: black">Főoldal</a></li>
-                <li class="lik"><a href="Aruk.php" class="lika" style="color: blueviolet">Áruk</a></li>
-                <li class="lik"><a href="Kosar.php" class="lika" style="color: black">Kosár</a></li>
-
+                <li class="lik"><a href="Aruk.php" class="lika" style="color: black">Áruk</a></li>
+                <li class="lik"><a href="Kosar.php" class="lika" style="color: blueviolet">Kosár</a></li>
                 <li class="lik"><a href="add.php" class="lika" style="color: black">Add</a></li>
             <?php endif;
             ?>
@@ -85,7 +86,7 @@ session_start();
             print "</table>";
 
             if(!empty($_SESSION["username"])){
-                print "<form method='POST' action='Kosar.php' accept-charset='utf-8'>";
+                print "<form method='POST' action='kosarhozadd.php' accept-charset='utf-8'>";
                 print "</table>\n";
                 print "<div class='form-group'>";
                 print "<label for='amount'>Darabszám</label>";
@@ -93,12 +94,10 @@ session_start();
                 print "<input type='hidden' name='name' 'value='$row[NEV]'/>";
                 print "<input type='hidden' name='ar' 'value=$row[AR]'/>";
 
-                print "<input type='submit' class='btnAddAction' value='Kosárba' placeholder='Megrendel' ></input>";
+                print "<input type='submit' class='btnAddAction' value='Kosárba' placeholder='Megrendel' />";
                 print "</div>";
                 print "</form>";
             }
-
-
             print "<br>";
 
 
