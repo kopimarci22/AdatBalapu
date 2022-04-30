@@ -1,0 +1,73 @@
+/*Login kezdete*/
+.content {
+    text-align: center;
+}
+.h2 {
+    text-align: center;
+    color: black;
+    font-family: 'Times New Roman', Times, serif;
+}
+.input {
+    text-align:left;
+    color: black;
+    font-family: 'Times New Roman', Times, serif;
+    margin: 10px;
+    padding: 5px;
+}
+/*Login vége*/
+/*Főoldal kezdete*/
+/*Menu*/
+.lik{
+    display: inline;
+    vertical-align: middle;
+    padding: 20px;
+    font-size: 40px;
+    text-align: center;
+
+
+}
+.lika:hover{color: black}
+.lika{
+    text-decoration: none;
+    color: azure;
+
+
+}
+#menu{
+    vertical-align: center;
+    border:5px solid black;
+    border-collapse: collapse;
+    padding: 15px;
+    text-align: center;
+
+}
+/*Menu vége*/
+html {
+    background: bisque;
+}
+/*Főoldal vége*/
+/*Regisztráció*/
+.prob{
+    color: black;
+
+}
+#regist{
+    text-align: end;
+    color: black;
+    font-size: 40px;
+    width: 530px;
+    height: 500px;
+    border: 5px solid black;
+    background-attachment: fixed;
+}
+#registgomb{
+    background-color: darkgray;
+    color: azure;
+    width: 100px;
+    height: 30px;
+}
+.registinput{
+    height: 30px;
+    width: 200px;
+}
+/*Regisztráció vége*/
