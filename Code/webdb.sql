@@ -42,9 +42,9 @@ create table FELHASZNALO(
 
 -- A Term�k t�bla attrib�tumai: T_k�d, n�v, db_sz�m, �r, ID
 create table TERMEK(
-	t_kod VARCHAR2(40) PRIMARY KEY NOT NULL,
+	t_kod VARCHAR2(40)  NOT NULL,
     ar NUMBER(38),
-	nev VARCHAR2(40) NOT NULL,
+	nev VARCHAR2(40) PRIMARY KEY NOT NULL,
 	db_szam NUMBER(38) NOT NULL,
 	kategoria  VARCHAR2(40),
 	FOREIGN KEY(kategoria) REFERENCES KATEGORIA(KATEGORIA)
@@ -115,11 +115,11 @@ create table TORZSVASARLO(
 -- A Comment t�bla attrib�tumai: T_k�d, Fel_n�v, D�tum
 
 create table KOMMENT(
-	t_kod VARCHAR2(40),
+	nev VARCHAR2(40),
 	fel_nev VARCHAR2(40),
 	komment VARCHAR2(1000),
 	datum_comment DATE,
-	FOREIGN KEY(t_kod) REFERENCES TERMEK(T_KOD),
+	FOREIGN KEY(nev) REFERENCES TERMEK(MEV),
 	FOREIGN KEY(fel_nev) REFERENCES FELHASZNALO(FEL_NEV)
 );
 

@@ -1,9 +1,7 @@
-<<<<<<< HEAD
 
-=======
 <?php
 
-$conn = oci_connect('DAVID', 'asd123','localhost/XE');
+$conn = oci_connect('GERGOO', 'asd123','localhost/XE');
 if(!$conn){
 
     $e=oci_error();
@@ -27,7 +25,7 @@ if(!$r){
 
 
 ?>
->>>>>>> David
+
 <!DOCTYPE html>
 <html lang="hu">
 <head>
@@ -36,17 +34,17 @@ if(!$r){
     <link rel="stylesheet" href="All.css"/>
 </head>
 <body>
-<<<<<<< HEAD
+
 <div id="prob"><form id="belep" action="Regist.php" method="post" enctype="multipart/form-data" autocomplete="off">
-=======
+
 <div class="prob"><form id="belep" action="Regist.php" method="post" enctype="multipart/form-data" autocomplete="off">
->>>>>>> David
+
         <fieldset id="regist" style="height: 500px">
             <legend>Regisztráció</legend>
             <label>Felhasználónév: <input type="text" name="fnev"  placeholder="Felhasználónév..." maxlength="10" class="registinput"/></label><br/>
             <label>Jelszó: <input type="password" name="pass" maxlength="10" placeholder="**********" class="registinput" /></label><br/>
             <label>Jelszó ismétlés: <input type="password" name="pass2" maxlength="10" placeholder="**********" class="registinput" /></label><br/>
-<<<<<<< HEAD
+
             <label>Lakcím: <input type="text" name="lakcim"  class="registinput" required/></label><br/>
             <label>Születésnap: <input type="date" name="szuldatum"  class="registinput" required/></label><br/>
             <label>E-mail cím: <input type="email" name="email" placeholder="valami@gmail.com"  class="registinput"/></label><br/>
@@ -58,7 +56,7 @@ if(!$r){
     <p id="belepszoveg">Van már fiókod?<a href="Login.php">Bejelentkezés</a><br/>
     <a href="Fooldal.php" id="vissza">Vissza</a></p>
 </div>
-=======
+
             <label>Név: <input type="text" name="name"  class="registinput" /></label><br/>
             <label>Lakcím: <input type="text" name="lakcim"  class="registinput" required/></label><br/>
             <label>Születésnap: <input type="date" name="szuldatum"  class="registinput" required/></label><br/>
@@ -166,7 +164,7 @@ if (isset($_POST["regist"])) {
     ?></div><?php
 }
 ?>
->>>>>>> David
+
 
 
 </body>
