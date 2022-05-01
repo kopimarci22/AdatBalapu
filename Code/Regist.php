@@ -1,6 +1,6 @@
 <?php
 
-$conn = oci_connect('DAVID', 'asd123','localhost/XE');
+$conn = oci_connect('GERGOO', 'asd123','localhost/XE');
 if(!$conn){
 
     $e=oci_error();

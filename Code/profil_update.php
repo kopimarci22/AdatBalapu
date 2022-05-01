@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-include "dbconn.php";
+include "databaseconn.php";
 $conn = DBconnection::getInstance();
 
 $email= $_POST['mail'];
@@ -21,7 +21,7 @@ oci_bind_by_name($res,":rname",$rname);
 oci_bind_by_name($res,":cim",$cim);
 oci_bind_by_name($res,":szdate",$szdate);
 oci_bind_by_name($res,":email",$email);
-oci_bind_by_name($res,":bankkartya",$bankkartya);
+
 
 if(oci_execute($res)===false){
     var_dump(oci_error($res));

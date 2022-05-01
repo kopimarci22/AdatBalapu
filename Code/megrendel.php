@@ -1,28 +1,21 @@
 <?php
+var_dump($_POST);
 session_start();
-//var_dump($row['ID']);
-var_dump($_SESSION);
-
-include "databaseconn.php";
+include "dbconn.php";
 $connection = DBconnection::getInstance();
 
-if(isset($_POST['name'])){
+if(isset($_POST['finish'])){
 
     echo"az if j�";
 
-    $itemname =     $_POST['name'];
-    $price =        $_POST['ar'];
-    $quantity =     $_POST['amount'];
+    $price =        $_POST['vegosszeg'];
     $felhasznalo =  $_SESSION['username'];
 
-
-    $query = "INSERT INTO KOSAR(k_id, fel_nev, idopont, nev, ar, k_db_szam, check_) VALUES (dbms_random.value(100,999),:felhasznalo, SYSDATE , :itemname,:price, :quantity, DEFAULT)";
+    $query = "INSERT INTO MEGRENDELES(m_id, fel_nev, datum, k_ar, allapot) VALUES (dbms_random.value(100,999), :felhasznalo, SYSDATE, :price, DEFAULT)";
 
     $res = oci_parse($connection->getConnection(), $query);
 
-    oci_bind_by_name($res, ':itemname', $itemname);
     oci_bind_by_name($res, ':felhasznalo', $felhasznalo);
-    oci_bind_by_name($res, ':quantity', $quantity);
     oci_bind_by_name($res, ':price', $price);
 
     if(oci_execute($res)===false){

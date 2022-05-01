@@ -39,9 +39,10 @@ session_start();
 <?php
 include "databaseconn.php";
 $conn = DBconnection::getInstance();
-$stid = oci_parse($conn->getConnection(), "SELECT FEL_NEV,  FROM KOSAR WHERE FelhNev=:felhnev and megrendelt=0");
+$stid = oci_parse($conn->getConnection(), "SELECT K_ID,FEL_NEV,IDOPONT, NEV,AR,  K_DB_SZAM  FROM KOSAR WHERE FEL_NEV=:felhnev and CHECK_=0");
+
 oci_bind_by_name($stid, ':felhnev', $_SESSION['username']);
-$stid2 = oci_parse($conn->getConnection(), "SELECT TorzsvE FROM TORZSVASARLO WHERE FelhNev=:felhnev");
+$stid2 = oci_parse($conn->getConnection(), "SELECT TorzsvE  FROM TORZSVASARLO WHERE FEL_NEV=:felhnev");
 oci_bind_by_name($stid2, ':felhnev', $_SESSION['username']);
 
 if(!$stid || !$stid2) {
@@ -67,11 +68,11 @@ while($row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS)) {
     $t = oci_execute($stid2);
     print "<tr>\n";
     print "<form method='POST' action='torol.php'>";
-    $value += $row['AR'] * $row['DARAB'];
-    print "<tr><td>". $row['NEV']. "</td><td>". $row['DARAB']." Db".  "</td><td>". $row['AR']." Ft".  "</td><td><input type='submit' class='btn btn-info' name='delete' value='X'></td></tr>";
+    $value += $row['AR'] * $row['K_DB_SZAM'];
+    print "<tr><td>". $row['NEV']. "</td><td>". $row['K_DB_SZAM']." Db".  "</td><td>". $row['AR']." Ft".  "</td><td><input type='submit' class='btn btn-info' name='delete' value='X'></td></tr>";
     print "";
-    print "<input type='hidden' name='name' value='$_SESSION[Felhnev]'/>";
-    print "<input type='hidden' name='id' value='$row[ID]'/>";
+    print "<input type='hidden' name='name' value='$_SESSION[username]'/>";
+    print "<input type='hidden' name=' k_id' value='$row[K_ID]'/>";
     print "</form>";
     print "</tr>\n";
 

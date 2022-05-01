@@ -43,7 +43,7 @@ create table FELHASZNALO(
 -- A Term�k t�bla attrib�tumai: T_k�d, n�v, db_sz�m, �r, ID
 create table TERMEK(
                        t_kod VARCHAR2(40) PRIMARY KEY NOT NULL,
-                       ar NUMBER(38),
+                       ar NUMBER(38) UNIQUE NOT NULL,
                        nev VARCHAR2(40) UNIQUE NOT NULL,
                        db_szam NUMBER(38) NOT NULL,
                        kategoria  VARCHAR2(40),
@@ -53,14 +53,17 @@ create table TERMEK(
 -- A Kos�r t�bla attrib�tumai: Fel_nev, Id�pont, �r, K_db_sz�m, T_k�d, Check (T�rzsv�s�rl�-e bool), elerheto(elerheto-e)
 
 create table KOSAR(
+                      k_id NUMBER(38) PRIMARY KEY NOT NULL,
                       fel_nev VARCHAR2(20),
                       idopont DATE,
+                      nev VARCHAR2(40),
                       ar NUMBER(38),
                       k_db_szam NUMBER(38),
                       t_kod VARCHAR2(20),
-                      check_ NUMBER(1),
-                      elerheto NUMBER(1),
+                      check_ NUMBER(1) DEFAULT 0,
                       FOREIGN KEY(fel_nev) REFERENCES FELHASZNALO(FEL_NEV),
+                      FOREIGN KEY(ar) REFERENCES TERMEK(AR),
+                      FOREIGN KEY(nev) REFERENCES TERMEK(NEV),
                       FOREIGN KEY(t_kod) REFERENCES TERMEK(T_KOD)
 );
 
