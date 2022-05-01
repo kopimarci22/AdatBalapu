@@ -32,7 +32,7 @@ create table FELHASZNALO(
                             jelszo VARCHAR2(21) NOT NUll,
                             nev VARCHAR2(40),
                             lakcim VARCHAR2(40),
-                            szul_datum DATE,
+                            szul_datum varchar(20),
                             email VARCHAR2(40) NOT NUll,
                             bankkartya NUMBER(38) NOT NULL
 
@@ -110,7 +110,7 @@ create table KEDVENCEK(
 -- A T�rzsv�s�rl� t�bla attr�b�tuma: kedvezm�ny (bool)
 
 create table TORZSVASARLO(
-                             kedvezmeny NUMBER(1),
+                             TorzsvE NUMBER(1),
                              fel_nev VARCHAR2(20),
                              FOREIGN KEY(fel_nev) REFERENCES FELHASZNALO(FEL_NEV)
 );
@@ -126,6 +126,26 @@ create table KOMMENT(
                         FOREIGN KEY(nev) REFERENCES TERMEK(NEV),
                         FOREIGN KEY(fel_nev) REFERENCES FELHASZNALO(FEL_NEV)
 );
+
+
+
+--TRIGGEREK
+
+CREATE OR REPLACE TRIGGER Kosar_RESET
+BEFORE INSERT ON megrendeles
+FOR EACH ROW
+BEGIN
+    UPDATE Rendel SET check_=1 where fel_nev=:new.fel_nev;
+END;
+/
+
+CREATE OR REPLACE TRIGGER def_törzsv
+AFTER INSERT ON FELHASZNALO
+FOR EACH ROW
+BEGIN
+INSERT INTO torzsvasarlo(fel_nev, TorzsvE) VALUES(:new.fel_nev, dbms_random.value(0,1));
+END;
+/
 
 --kategoria
 INSERT INTO Kategoria VALUES('Edesseg');
