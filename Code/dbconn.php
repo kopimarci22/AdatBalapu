@@ -6,7 +6,7 @@ class DBconnection{
     private static $instance = null;
 
     private function __construct(){
-        $connection = oci_connect('GERGOO', 'asd123','localhost/XE', "UTF8") or die("Hibás csatlakozás!");
+        $connection = oci_connect('DAVID', 'asd123','localhost/XE', "UTF8") or die("Hibás csatlakozás!");
         // a karakterek helyes megjelenítése miatt be kell állítani a karakterkódolást!
         if(!$connection){
             $m = oci_error();

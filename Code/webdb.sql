@@ -32,7 +32,7 @@ create table FELHASZNALO(
                             jelszo VARCHAR2(21) NOT NUll,
                             nev VARCHAR2(40),
                             lakcim VARCHAR2(40),
-                            szul_datum DATE,
+                            szul_datum VARCHAR2(20),
                             email VARCHAR2(40) NOT NUll,
                             bankkartya NUMBER(38) NOT NULL
 
@@ -294,6 +294,3 @@ INSERT INTO FELHASZNALO VALUES('Vervain','YLafutlZ4scYQeOPq4Ws','Bell Denis','Be
 INSERT INTO Admin VALUES('David','szokecigany');
 INSERT INTO Admin VALUES('Marci', 'macilaci');
 INSERT INTO Admin VALUES('Gergo', 'gitgut');
-
---
-commit;

@@ -30,7 +30,7 @@ session_start();
             <?php else:?>
                 <li class="lik"><a href="Fooldal.php" class="lika" style="color: black">Főoldal</a></li>
                 <li class="lik"><a href="Aruk.php" class="lika" style="color: blueviolet">Áruk</a></li>
-                <li class="lik"><a href="Kosar.php" class="lika" style="color: blueviolet">Kosár</a></li>
+                <li class="lik"><a href="Kosar.php" class="lika" style="color: black">Kosár</a></li>
                 <li class="lik"><a href="add.php" class="lika" style="color: black">Add</a></li>
             <?php endif;
             ?>
@@ -47,16 +47,16 @@ session_start();
         $conn = DBconnection::getInstance();
         $stid2 = oci_parse($conn->getConnection(), 'SELECT nev, ar, db_szam,kategoria FROM TERMEK WHERE db_szam>0 order by kategoria');
 
+
         if(!$stid2) {
-            $e = oci_error($conn->getConnection(), $stid2);
+            $e = oci_error($stid2);
             trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
         }
         $r = oci_execute($stid2);
         if(!$r){
-            $e = oci_error($stid2);
+            $e = oci_error($r);
             trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
         }
-        echo "asd";
 
         /* while (($user = oci_fetch_array($stid2, OCI_BOTH)) != false) {
              echo "<tr>";
@@ -64,6 +64,7 @@ session_start();
              echo "<tr><td>".$user['AR']."</td></tr>";
              echo "</tr>";
          }*/
+
 
         while(($row = oci_fetch_array($stid2, OCI_BOTH)) != false) {
 
