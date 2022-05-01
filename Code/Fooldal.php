@@ -26,6 +26,8 @@ session_start();
                   <li class="lik"><a href="Komment.php" class="lika" style="color: black">Komment</a></li>
                   <li class="lik"><a href="Kosar.php" class="lika" style="color: black">Kosár</a></li>
                   <li class="lik"><a href="profil.php" class="lika" style="color: black">Profil</a></li>
+                  <li class="lik"><a href="logout.php" class="lika" style="color: black">Logout</a></li>
+
 
 
               <?php else:?>
@@ -33,28 +35,12 @@ session_start();
                   <li class="lik"><a href="Aruk.php" class="lika" style="color: black">Áruk</a></li>
                   <li class="lik"><a href="Kosar.php" class="lika" style="color: blueviolet">Kosár</a></li>
                   <li class="lik"><a href="add.php" class="lika" style="color: black">Add</a></li>
+                  <li class="lik"><a href="logout.php" class="lika" style="color: black">Logout</a></li>
               <?php endif;
               ?>
           </ul></nav>
 
-      <?php if ( !empty($_SESSION["username"]) ||  !empty($_SESSION["admin"])):?>
-          <form id="logout" action="Fooldal.php" method="post" enctype="multipart/form-data" autocomplete="off">
-              <fieldset id="logout" >
-                  <input type="submit" name="logout" value="Logout" id="registgomb">
-              </fieldset>
-          </form>
-      <?php endif;
-      ?>
 
-      <?php
-      if (isset($_POST["logout"])) {
-          echo $_SESSION["username"];
-          session_unset();
-          session_destroy();
-          header("Location: Fooldal.php");
-
-      }
-      ?>
 
 
   </div>
