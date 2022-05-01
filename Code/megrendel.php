@@ -23,6 +23,7 @@ if(isset($_POST['finish'])){
     }else{
         //oci_commit($connection->getConnection());
         echo "Sikeres felvitel";
+
         header("Location: Kosar.php");
     }
 }

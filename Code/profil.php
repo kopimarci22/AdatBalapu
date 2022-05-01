@@ -98,6 +98,51 @@ session_start();
             ?>
         </form>
     </div>
+<div class="container">
+    <div class="col-sm-4">
+
+        <?php
+
+
+
+        $stid = oci_parse($conn->getConnection(), 'SELECT m_id,datum , k_ar FROM MEGRENDELES WHERE FEL_NEV=:felhnev');
+        oci_bind_by_name($stid, ':felhnev', $_SESSION['username']);
+        if(!$stid) {
+            $e = oci_error($conn);
+            trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
+        }
+        $r = oci_execute($stid);
+
+        if(!$r){
+            $e = oci_error($stid);
+            trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
+
+        }
+
+        while(($row = oci_fetch_array($stid, OCI_BOTH)) != false) {
+            print "<table border='1'>\n";
+
+
+            print "Eddigi rendelés ";
+            print "<tr><th>Rendelés azonositó </th><th>Időpont </th><th>Összeg </th></tr>";
+            while($row = oci_fetch_array($stid, OCI_BOTH)) {
+
+
+
+                print "<tr>\n";
+                print "<tr><td>". $row['M_ID']. "</td><td>". $row['DATUM'].  "</td><td>". $row['K_AR']." Ft".  "</td></tr>";
+
+                print "</tr>\n";
+
+
+            }
+
+        }
+
+        oci_free_statement($stid);
+        ?>
+
+    </div>
 
 </div>
 </div>

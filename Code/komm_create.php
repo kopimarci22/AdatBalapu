@@ -26,7 +26,7 @@ if(isset($_POST['komm_create'])){
     }else{
         //oci_commit($connection->getConnection());
         echo "Sikeres felvitel";
-        header("Location: http://localhost/Code/Komment.php");
+        header("Location: Komment.php");
 
     }
 }
